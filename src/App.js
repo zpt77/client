@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [data, setData] = useState([]);
@@ -15,7 +17,10 @@ function App() {
     };
     fetch('/login', requestOptions)
       .then(response => response.json())
-      .then(data => setData(data));
+      .then(data => {
+        setData(data);
+        toast.success(`Welcome ${login}!`);
+      });
   };
   
 
@@ -45,7 +50,9 @@ function App() {
       ) : (
         <p>Please log in</p>
       )}
+      <ToastContainer />
     </div>
+    
   );
 }
 
