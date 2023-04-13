@@ -16,10 +16,20 @@ function App() {
       body: JSON.stringify({ username: login, password: password })
     };
     fetch('/login', requestOptions)
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Login failed");
+        }
+      })
       .then(data => {
         setData(data);
         toast.success(`Welcome ${login}!`);
+      })
+      .catch(error => {
+        console.error(error);
+        toast.error("Login failed");
       });
   };
   
