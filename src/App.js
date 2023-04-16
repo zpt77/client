@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,6 +32,25 @@ function App() {
         toast.error("Login failed");
       });
   };
+
+  useEffect(() => {
+    // Obsługa żądania GET /
+    fetch('/name', { method: 'GET' })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch data");
+        }
+      })
+      .then(data => {
+        console.log("Running on server:", data.server_name); // Dodana linijka kodu
+      })
+      .catch(error => {
+        console.error(error);
+        toast.error("Failed to fetch data");
+      });
+  }, []);
   
 
   return (
@@ -62,7 +81,6 @@ function App() {
       )}
       <ToastContainer />
     </div>
-    
   );
 }
 
