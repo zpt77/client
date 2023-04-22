@@ -11,7 +11,7 @@ function App() {
   const handleLogin = (event) => {
     event.preventDefault();
     const requestOptions = {
-      method: 'POST',
+      method: 'POST' ,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: login, password: password })
     };
